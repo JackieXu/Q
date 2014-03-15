@@ -1,0 +1,8 @@
+queue_web:
+    resource: "@QueueWebBundle/Resources/config/routing.yml"
+    prefix:   /
+
+queue_data:
+    resource: "@QueueDataBundle/Resources/config/routing.yml"
+    prefix:   /
+

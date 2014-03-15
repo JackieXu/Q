@@ -1,0 +1,58 @@
+/** General rules **/
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Times New Roman", serif;
+}
+a {
+    text-decoration: none;
+}
+h2 {
+    text-align: center;
+}
+/** Class rules **/
+.flash-notice {
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+.flash-close {
+    background-color: transparent;
+    border: none;
+    color: white;
+    float: right;
+}
+.flash-close:hover {
+    color: red;
+}
+.button {
+    background-color: green;
+    color: white;
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.button:hover {
+    background-color: purple;
+}
+.queue-entry {
+    background-color: purple;
+    color: #FFF;
+    margin: 20px 0;
+    padding: 20px;
+    width: 960px;
+}
+/** ID rules **/
+#container {
+    margin: auto;
+    overflow: auto;
+    position: relative;
+    width: 1000px;
+}
+#user {
+    
+}

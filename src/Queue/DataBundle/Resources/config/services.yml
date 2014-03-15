@@ -1,0 +1,7 @@
+parameters:
+#    queue_data.example.class: Queue\DataBundle\Example
+
+services:
+#    queue_data.example:
+#        class: %queue_data.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

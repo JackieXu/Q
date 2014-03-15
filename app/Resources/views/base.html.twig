@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Onbelangrijke meta stuff -->
+        <meta charset="utf-8" />
+
+        <!-- Titels zijn belangrijk -->
+        <title>{{ title|default('Star Apple') }} - Queue</title>
+
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    </head>
+    <body>
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="flash-notice">
+                {{ flashMessage }}
+                <button class="flash-close">[Verbergen]</button>
+            </div>
+        {% endfor %}
+        <div id="container">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div id="user">
+                <span id="username">{{ app.user.username }} (<a href="/logout/">Uitloggen</a>)</span>
+            </div>
+            {% endif %}
+            {% block body %}
+            {% endblock %}
+        </div>
+        <script src="js/site.js"></script>
+    </body>
+</html>

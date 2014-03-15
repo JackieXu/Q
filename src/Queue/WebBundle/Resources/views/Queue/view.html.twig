@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+<h2>{{ queue.name }}</h2>
+{% if inQueue %}
+<a class="button" href="{{ path('queue_add_entry', {queueId: queue.id}) }}">Add entry</a>
+{% else %}
+<a class="button" href="{{ path('queue_join', {queueId: queue.id}) }}">Join queue</a>
+{% endif %}
+<div id="queue-entries">
+    {% for entry in queue.entries %}
+    <div class="queue-entry">
+        <h4>{{ entry.user.username }}</h4>
+        <p>{{ entry.date|date('H:i') }}</p>
+        {% if entry.user.username == app.user.username and loop.index == 1 %}
+        <a href="#">Complete</a>
+        {% endif %}
+    </div>
+    {% else %}
+    <p>Nog niets!</p>
+    {% endfor %}
+</div>
+{% endblock %}

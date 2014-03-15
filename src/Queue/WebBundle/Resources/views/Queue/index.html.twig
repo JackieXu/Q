@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+<h2>Star Apple Q-Sys</h2>
+{% for queue in queues %}
+<div class="queue">
+    <a href="{{ path('queue', {queueId: queue.id}) }}"><h3>{{ queue.name }}</h3></a>
+    <p>Aantal leden: {{ queue.users|length }}</p>
+</div>
+{% else %}
+<p>
+    Er is momenteel geen queue!
+</p>
+{% endfor %}
+{% endblock %}

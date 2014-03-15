@@ -1,0 +1,41 @@
+home:
+    pattern: /
+    defaults: { _controller: QueueWebBundle:Default:index }
+
+login:
+    pattern: /login
+    defaults: { _controller: QueueWebBundle:Auth:login }
+
+logout:
+    pattern: /logout
+
+check:
+    pattern: /check
+
+queues:
+    pattern: /queues/
+    defaults: { _controller: QueueWebBundle:Queue:index }
+
+queue:
+    pattern: /queues/{queueId}/
+    defaults: { _controller: QueueWebBundle:Queue:view }
+
+queue_join:
+    pattern: /queues/{queueId}/join/
+    defaults: { _controller: QueueWebBundle:Queue:join }
+
+queue_add_entry:
+    pattern: /queues/{queueId}/add-entry/
+    defaults: { _controller: QueueWebBundle:Queue:addEntry }
+
+admin:
+    pattern: /admin/
+    defaults: { _controller: QueueWebBundle:Admin:index }
+
+admin_add_user:
+    pattern: /admin/add-user/
+    defaults: { _controller: QueueWebBundle:Admin:addUser }
+
+admin_add_queue:
+    pattern: /admin/add-queue/
+    defaults: { _controller: QueueWebBundle:Admin:addQueue }
