@@ -3,6 +3,7 @@
 namespace Queue\DataBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Queue\DataBundle\Entity\Queue;
 
 /**
  * EntryRepository
@@ -12,4 +13,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class EntryRepository extends EntityRepository
 {
+    public function findActiveByQueue(Queue $queue)
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('entry')
+            ->from('QueueDataBundle:Entry', 'entry')
+            ->where('entry.isCompleted IS NULL')
+            ->orderBy('entry.date')
+            ->getQuery()
+            ->getResult();
+    }
 }

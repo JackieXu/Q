@@ -27,4 +27,24 @@ class QueueRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function removeFirstInQueue($queue)
+    {
+        $sql = '
+            UPDATE      entries
+            SET         entries.is_completed = 1
+            WHERE       entries.is_completed IS NULL
+            AND         entries.queue_id = :queue_id
+            ORDER BY    entries.date ASC
+            LIMIT       1
+        ';
+
+        $statement = $this->getEntityManager()->getConnection()->prepare($sql);
+        
+        $id = $queue->getId();
+
+        $statement->bindParam(':queue_id', $id);
+
+        return $statement->execute();
+    }
 }

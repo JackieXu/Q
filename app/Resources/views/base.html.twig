@@ -10,21 +10,40 @@
         <link rel="stylesheet" type="text/css" href="/css/style.css" />
     </head>
     <body>
-        {% for flashMessage in app.session.flashbag.get('notice') %}
-            <div class="flash-notice">
-                {{ flashMessage }}
-                <button class="flash-close">[Verbergen]</button>
-            </div>
-        {% endfor %}
-        <div id="container">
+        <header>
+            <nav>
+                <a href="http://www.starapple.nl">Star Apple</a>
+            </nav>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div id="user">
-                <span id="username">{{ app.user.username }} (<a href="/logout/">Uitloggen</a>)</span>
+                <span id="username">{{ app.user.username }} <a href="/logout">[Uitloggen]</a></span>
             </div>
             {% endif %}
+        </header>
+        <div id="container">
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="flash-notice">
+                    <span class="flash-message">{{ flashMessage }}</span>
+                    <button class="flash-close">[Verbergen]</button>
+                </div>
+            {% endfor %}
+            <div id="content">
             {% block body %}
             {% endblock %}
+            </div>
         </div>
-        <script src="js/site.js"></script>
+        <script>
+        (function () {
+            var elems = document.getElementsByTagName('*'),
+                i
+            for (i in elems) {
+                if((elems[i].className).indexOf('flash-close') > -1) {
+                    elems[i].addEventListener('click', function () {
+                        this.parentNode.parentNode.removeChild(this.parentNode)
+                    }, false)
+                }
+            }
+        })()
+        </script>
     </body>
 </html>

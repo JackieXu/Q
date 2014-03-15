@@ -28,6 +28,14 @@ queue_add_entry:
     pattern: /queues/{queueId}/add-entry/
     defaults: { _controller: QueueWebBundle:Queue:addEntry }
 
+queue_complete_entry:
+    pattern: /queues/{queueId}/complete-entry/{entryId}/
+    defaults: { _controller: QueueWebBundle:Queue:completeEntry }
+
+queue_refresh:
+    pattern: /queues/{queueId}/refresh/
+    defaults: { _controller: QueueWebBundle:Queue:refresh }
+
 admin:
     pattern: /admin/
     defaults: { _controller: QueueWebBundle:Admin:index }

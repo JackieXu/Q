@@ -7,16 +7,17 @@
 <a class="button" href="{{ path('queue_join', {queueId: queue.id}) }}">Join queue</a>
 {% endif %}
 <div id="queue-entries">
-    {% for entry in queue.entries %}
+    {% for entry in entries %}
     <div class="queue-entry">
-        <h4>{{ entry.user.username }}</h4>
-        <p>{{ entry.date|date('H:i') }}</p>
-        {% if entry.user.username == app.user.username and loop.index == 1 %}
-        <a href="#">Complete</a>
+        <h4 class="queue-entry-user">{{ entry.user.username }}</h4>
+        {% if (entry.user.username == app.user.username and loop.index == 1) or is_granted('ROLE_ADMIN') %}
+        <a class="complete" href="{{ path('queue_complete_entry', {queueId: queue.id, entryId: entry.id}) }}">Complete</a>
         {% endif %}
     </div>
     {% else %}
-    <p>Nog niets!</p>
+    <div class="queue-entry">
+        <h4 class="queue-entry-user">Niemand</h4>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}

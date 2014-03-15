@@ -1,10 +1,13 @@
 {% extends "::base.html.twig" %}
 {% block body %}
+<h2>Login - Q-Sys</h2>
 <form method="POST" action="{{ path('check') }}">
     <label for="username">Gebruikersnaam</label>
     <input type="text" name="_username" id="username" placeholder="Ezreal" />
+    <br />
     <label for="password">Wachtwoord</label>
     <input type="password" name="_password" id="password" placeholder="Taric123" />
+    <br />
     <input type="submit" value="Inloggen" />
 </form>
 {% endblock %}

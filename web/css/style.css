@@ -6,27 +6,79 @@
 body {
     font-family: "Times New Roman", serif;
 }
+header {
+    background-color: purple;
+    color: white;
+    height: 40px;
+    line-height: 40px;
+    overflow: auto;
+}
 a {
     text-decoration: none;
 }
+a:hover {
+    text-decoration: underline;
+}
 h2 {
+    margin-top: 20px;
     text-align: center;
+}
+form {
+    margin-top: 40px;
+    overflow: auto;
+    position: relative;
+    text-align: center;
+}
+label {
+    display: block;
+    margin: 20px auto 0;
+    position: relative;
+    text-align: center;
+    width: 200px;
+}
+input {
+    border: 1px solid black;
+    box-sizing: content-box;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+}
+input[type=submit] {
+    box-sizing: content-box;
+    margin-top: 20px;
+}
+nav {
+    float: left;
+    margin-left: 20px;
+}
+nav > a {
+    color: white;
 }
 /** Class rules **/
 .flash-notice {
     background-color: purple;
     color: white;
-    padding: 10px;
+    height: 40px;
+    margin-top: 20px;
+    position: relative;
+}
+.flash-message {
+    display: block;
+    line-height: 40px;
     text-align: center;
 }
 .flash-close {
     background-color: transparent;
     border: none;
     color: white;
-    float: right;
+    line-height: 40px;
+    position: absolute;
+    right: 20px;
+    top: 0;
 }
 .flash-close:hover {
     color: red;
+    cursor: pointer;
 }
 .button {
     background-color: green;
@@ -37,14 +89,38 @@ h2 {
     top: 0;
 }
 .button:hover {
-    background-color: purple;
 }
 .queue-entry {
     background-color: purple;
     color: #FFF;
+    height: 40px;
     margin: 20px 0;
     padding: 20px;
+    position: relative;
     width: 960px;
+}
+.queue-entry:first-child {
+    background-color: green;
+}
+.queue-entry-user {
+    font-size: 32px;
+    text-align: center;
+}
+.queue-name {
+    color: white;
+    font-size: 32px;
+    text-align: center;
+}
+.complete {
+    background-color: purple;
+    color: white;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    right: 20px;
+    text-align: center;
+    top: 20px;
+    width: 100px;
 }
 /** ID rules **/
 #container {
@@ -53,6 +129,12 @@ h2 {
     position: relative;
     width: 1000px;
 }
+#content {
+    position: relative;
+}
 #user {
-    
+    float: right;
+}
+#user a {
+    color: white;
 }

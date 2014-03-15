@@ -11,12 +11,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Entry
 {
     /**
+     * @ORM\Id
+     * @ORM\Column(type="integer", name="id")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
      * @ORM\Column(type="datetime", name="date")
      */
     protected $date;
 
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Queue\DataBundle\Entity\User")
      */
     protected $user;
@@ -27,7 +33,6 @@ class Entry
     protected $isCompleted;
 
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Queue\DataBundle\Entity\Queue")
      */
     protected $queue;
@@ -127,5 +132,15 @@ class Entry
     public function getIsCompleted()
     {
         return $this->isCompleted;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

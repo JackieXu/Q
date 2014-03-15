@@ -3,7 +3,7 @@
 namespace Queue\WebBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\HttpFoundation\Response;
 use Queue\DataBundle\Entity\Entry;
 
 /**
@@ -27,8 +27,14 @@ class QueueController extends Controller
         // Get user
         $user = $this->getUser();
 
+        // Get entity manager 
+        $em = $this->getDoctrine()->getManager();
+
         // Get queue
-        $queue = $this->getDoctrine()->getManager()->getRepository('QueueDataBundle:Queue')->findOneById($queueId);
+        $queue = $em->getRepository('QueueDataBundle:Queue')->findOneById($queueId);
+
+        // Get entries
+        $entries = $em->getRepository('QueueDataBundle:Entry')->findActiveByQueue($queue);
 
         // If it doesn't exist, throw an exception
         if (!$queue) {
@@ -37,6 +43,7 @@ class QueueController extends Controller
 
         return $this->render('QueueWebBundle:Queue:view.html.twig', array(
             'queue' => $queue,
+            'entries' => $entries,
             'inQueue' => in_array($user, $queue->getUsers()->toArray())
         ));
     }
@@ -125,5 +132,66 @@ class QueueController extends Controller
         return $this->redirect($this->generateUrl('queue', array(
             'queueId' => $queueId
         )));
+    }
+
+    public function completeEntryAction($queueId, $entryId)
+    {
+        // Get user
+        $user = $this->getUser();
+
+        // Get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // Get queue repository
+        $queueRepository = $em->getRepository('QueueDataBundle:Queue');
+
+        // Get queue
+        $queue = $queueRepository->findOneById($queueId);
+
+        // Get entry repository
+        $entryRepository = $em->getRepository('QueueDataBundle:Entry');
+
+        // Get entry
+        $entry = $entryRepository->findOneById($entryId);
+
+        // If it doesn't exist, throw an exception
+        if (!$queue) {
+            throw $this->createNotFoundException('Queue not found, gg.');
+        }
+
+        // If entry isn't owned by user, throw an exception
+        if ($entry->getUser()->getUsername() !== $user->getUsername()) {
+            throw $this->createNotFoundException('Ongeldige entry, gg.');
+        }
+
+        // Set is completed
+        $entry->setIsCompleted(true);
+
+        // Save and flush
+        $em->persist($entry);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'Succesvol uit de wachtrij verwijderd.'
+        );
+
+        return $this->redirect($this->generateUrl('queue', array(
+            'queueId' => $queueId
+        )));
+    }
+
+    public function refreshAction($queueId)
+    {
+        // Get queue repository
+        $queueRepository = $this->getDoctrine()->getManager()->getRepository('QueueDataBundle:Queue');
+
+        // Get queue
+        $queue = $queueRepository->findOneById($queueId);
+
+        // Remove first in queue
+        $queueRepository->removeFirstInQueue($queue);
+
+        return new Response('Refreshed queue');
     }
 }
