@@ -34,6 +34,9 @@
         </div>
         <script>
         (function () {
+            setTimeout(function () {
+                window.location.href = window.location.href
+            }, 30000)
             var elems = document.getElementsByTagName('*'),
                 i
             for (i in elems) {
@@ -43,9 +46,6 @@
                     }, false)
                 }
             }
-            setTimeout(function () {
-                window.location.href = window.location.href
-            }, 30000)
         })()
         </script>
     </body>
